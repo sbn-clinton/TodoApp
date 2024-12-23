@@ -1,17 +1,16 @@
 "use server"
 
 
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { auth } from "@/auth";
 import { prisma } from "@/lib/db";
 import { FormData } from "@/lib/types";
-import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export const createTodo = async (formData: FormData) => {
 
 
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
   if (!session?.user?.email) {
    redirect("/signin");
@@ -38,7 +37,7 @@ export const createTodo = async (formData: FormData) => {
 
   export const deleteTodo = async (slug: string) => {
 
-    const session = await getServerSession();
+    const session = await auth();
 
   if (!session?.user?.email) {
    redirect("/signin");
@@ -57,7 +56,7 @@ export const createTodo = async (formData: FormData) => {
 
   export const GetTodo = async (slug: string) => {
 
-    const session = await getServerSession();
+    const session = await auth();
 
   if (!session?.user?.email) {
    redirect("/signin");
@@ -81,7 +80,7 @@ export const createTodo = async (formData: FormData) => {
 
   export const updateTodo = async (formData: FormData, slug: string) => {
 
-    const session = await getServerSession();
+    const session = await auth();
 
   if (!session?.user?.email) {
    redirect("/signin");
