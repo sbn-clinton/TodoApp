@@ -1,13 +1,13 @@
 import TodoCard from "@/components/TodoCard";
 import { prisma } from "@/lib/db";
-import { options } from "../api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { FaArrowDown } from "react-icons/fa";
 import Link from "next/link";
+import { authOptions } from "../api/auth/[...nextauth]/route";
 
 const DashBoardPage = async () => {
-  const session = await getServerSession(options);
+  const session = await getServerSession(authOptions);
   const email = session?.user?.email;
 
   if (!email) {
